@@ -47,7 +47,7 @@ contract FavoriteColorVote {
     }
 
     function getWinner() external view returns (string memory winner, uint256 count) {
-        if(msg.sender != getMyOwner()) {
+        if (msg.sender != getMyOwner()) {
             revert FavoriteColorVote__NotOwner();
         }
         string memory currentWinner = colors[0];
@@ -62,11 +62,11 @@ contract FavoriteColorVote {
         return (currentWinner, highestVotes);
     }
 
-    function getMyOwner() public view returns(address) {
+    function getMyOwner() public view returns (address) {
         return myOwner;
     }
 
-    function isNotNumberSeven(uint value) public pure returns (bool) {
+    function isNotNumberSeven(uint256 value) public pure returns (bool) {
         if (value == 7) {
             return false;
         }

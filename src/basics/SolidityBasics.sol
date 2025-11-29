@@ -4,13 +4,12 @@ pragma solidity ^0.8.20;
 /// @title Solidity Basics Example (with Custom Errors)
 /// @notice Demonstrates key Solidity concepts for beginners, using modern error handling
 contract SolidityBasics {
-
     // -------------------------
     // Custom Errors
     // -------------------------
     error NotOwner();
     error InvalidEtherAmount();
-    error InsufficientBalance(uint requested, uint available);
+    error InsufficientBalance(uint256 requested, uint256 available);
 
     // -------------------------
     // State Variables
@@ -26,11 +25,11 @@ contract SolidityBasics {
     // -------------------------
     struct User {
         string name;
-        uint age;
+        uint256 age;
         address account;
     }
 
-    mapping(address => uint) private valuesToBooleans;
+    mapping(address => uint256) private valuesToBooleans;
 
     User[] public users;
 
@@ -38,7 +37,7 @@ contract SolidityBasics {
     // Events
     // -------------------------
     event MessageUpdated(string oldMessage, string newMessage);
-    event UserAdded(string name, uint age, address account);
+    event UserAdded(string name, uint256 age, address account);
 
     // -------------------------
     // Modifiers
@@ -77,17 +76,17 @@ contract SolidityBasics {
     }
 
     /// @notice Add a new user
-    function addUser(string memory name, uint age) public {
+    function addUser(string memory name, uint256 age) public {
         users.push(User(name, age, msg.sender));
         emit UserAdded(name, age, msg.sender);
     }
 
     /// @notice Get total number of users
-    function getUsersCount() public view returns (uint) {
+    function getUsersCount() public view returns (uint256) {
         return users.length;
     }
 
-    function add(uint x, uint y) public pure returns (uint) {
+    function add(uint256 x, uint256 y) public pure returns (uint256) {
         return x + y;
     }
 
@@ -96,21 +95,21 @@ contract SolidityBasics {
         /* if (msg.value == 0) {
             revert InvalidEtherAmount();
         } */
-       require(msg.value > 0, "Invalid Ether Amount");
-       valuesToBooleans[msg.sender] = msg.value;
+        require(msg.value > 0, "Invalid Ether Amount");
+        valuesToBooleans[msg.sender] = msg.value;
     }
 
     /// @notice Withdraw Ether (only owner)
-    function withdraw(uint amount) public onlyOwner {
-        uint balance = address(this).balance;
-        uint amountDeposited = valuesToBooleans[msg.sender];
+    function withdraw(uint256 amount) public onlyOwner {
+        uint256 balance = address(this).balance;
+        uint256 amountDeposited = valuesToBooleans[msg.sender];
         if (amount > balance) revert InsufficientBalance(amount, balance);
 
         payable(owner).transfer(amount);
     }
 
     /// @notice Get contract balance
-    function getBalance() public view returns (uint) {
+    function getBalance() public view returns (uint256) {
         return address(this).balance;
     }
 

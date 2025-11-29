@@ -21,7 +21,6 @@ contract SomeContract {
         balances[msg.sender] -= _amount;
     } */
 
-
     // Withdraw Ether from the contract
     // Follows CEI Pattern (Checks, Effects, Interactions)
     function withdraw(uint256 _amount) external {
@@ -32,7 +31,7 @@ contract SomeContract {
         balances[msg.sender] -= _amount;
 
         // Send Ether to the caller (Interaction)
-        (bool success, ) = msg.sender.call{value: _amount}("");
+        (bool success,) = msg.sender.call{value: _amount}("");
         require(success, "Transfer failed");
     }
 
