@@ -30,13 +30,7 @@ contract TestContract is Test {
     function testOnlyOwnerCanCallGetWinner() public {
         vm.startPrank(account);
         vm.expectRevert(abi.encodeWithSelector(FavoriteColorVote__NotOwner.selector));
-        (string memory color, uint256 voteCount) = favouriteColorVote.getWinner();
+        favouriteColorVote.getWinner();
         vm.stopPrank();
-    }
-
-    function testIsNumberSeven(uint256 value) public {
-        vm.prank(account);
-        vm.expectRevert();
-        favouriteColorVote.isNotNumberSeven(value);
     }
 }

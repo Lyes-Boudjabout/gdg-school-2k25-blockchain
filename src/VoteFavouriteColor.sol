@@ -65,11 +65,4 @@ contract FavoriteColorVote {
     function getMyOwner() public view returns (address) {
         return myOwner;
     }
-
-    function isNotNumberSeven(uint256 value) public pure returns (bool) {
-        if (value == 7) {
-            return false;
-        }
-        return true;
-    }
 }
